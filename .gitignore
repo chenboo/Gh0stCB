@@ -1,0 +1,15 @@
+*.ncb
+*.pdb
+*.exp
+*.htm
+*.obj
+*.dep
+*.idb
+*.user
+*.pch
+*.suo
+*.aps
+*.res
+
+debug
+release
