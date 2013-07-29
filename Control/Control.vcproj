@@ -67,7 +67,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="./zlib/zlib.lib"
 				LinkIncremental="2"
+				IgnoreDefaultLibraryNames="MSVCRT"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -148,6 +150,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="./zlib/zlib.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -190,11 +193,23 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\iocp\Buffer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ChildView.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\Control.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\iocp\CpuUsage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\iocp\IOCPServer.cpp"
 				>
 			</File>
 			<File
@@ -228,11 +243,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\iocp\Buffer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ChildView.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Control.h"
+				>
+			</File>
+			<File
+				RelativePath=".\iocp\CpuUsage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\iocp\IOCPServer.h"
 				>
 			</File>
 			<File
