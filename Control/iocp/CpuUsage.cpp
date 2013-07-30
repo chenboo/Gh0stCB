@@ -1,19 +1,5 @@
-// CpuUsage.cpp: implementation of the CCpuUsage class.
-//
-//////////////////////////////////////////////////////////////////////
-
 #include "stdafx.h"
 #include "CpuUsage.h"
-
-#ifdef _DEBUG
-#undef THIS_FILE
-static char THIS_FILE[]=__FILE__;
-#define new DEBUG_NEW
-#endif
-
-//////////////////////////////////////////////////////////////////////
-// Construction/Destruction
-//////////////////////////////////////////////////////////////////////
 
 CCpuUsage::CCpuUsage()
 {
@@ -37,13 +23,11 @@ BOOL CCpuUsage::Init()
 
     m_pCounterStruct = (PPDHCOUNTERSTRUCT) new PDHCOUNTERSTRUCT;
 
-	PDH_STATUS pdh_status = PdhAddCounter(m_hQuery, szCounterName, (DWORD) m_pCounterStruct, &(m_pCounterStruct->hCounter));
+	PDH_STATUS pdh_status = PdhAddCounterA(m_hQuery, szCounterName, (DWORD) m_pCounterStruct, &(m_pCounterStruct->hCounter));
     if (ERROR_SUCCESS != pdh_status) 
 	{
 		return FALSE;
 	}
-
-
 
 	return TRUE;
 }
@@ -55,13 +39,7 @@ int CCpuUsage::GetUsage()
 
 	PdhCollectQueryData(m_hQuery);
 
-    if (ERROR_SUCCESS != PdhGetFormattedCounterValue( 
-                                    m_pCounterStruct->hCounter,
-                                    PDH_FMT_LONG,
-                                    NULL,
-                                    &pdhFormattedValue )) 
-
-
+    if (ERROR_SUCCESS != PdhGetFormattedCounterValue(m_pCounterStruct->hCounter, PDH_FMT_LONG, NULL, &pdhFormattedValue)) 
 	{
 		return 0;
 	}

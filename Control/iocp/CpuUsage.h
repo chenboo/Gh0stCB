@@ -1,21 +1,11 @@
-// CpuUsage.h: interface for the CCpuUsage class.
-//
-//////////////////////////////////////////////////////////////////////
-
-#if !defined(AFX_CPUUSAGE_H__60CF4F03_9F01_41E8_A9FB_51F065D5F3C2__INCLUDED_)
-#define AFX_CPUUSAGE_H__60CF4F03_9F01_41E8_A9FB_51F065D5F3C2__INCLUDED_
+#pragma once
 
 #pragma warning(disable:4311)
-
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
 
 #include <pdh.h>
 #include <pdhmsg.h>
 
 #pragma comment(lib,"PDH.lib")
-
 
 #define MAX_RAW_VALUES          20
 
@@ -29,21 +19,15 @@ typedef struct _tag_PDHCounterStruct {
     PDH_RAW_COUNTER a_RawValue[MAX_RAW_VALUES]; // Ring buffer to contain raw values
 } PDHCOUNTERSTRUCT, *PPDHCOUNTERSTRUCT;
 
-
 class CCpuUsage  
 {
 public:
 	CCpuUsage();
 	virtual ~CCpuUsage();
-	BOOL	Init();
+	BOOL Init();
 	int GetUsage();
 
 protected:
-
-	PPDHCOUNTERSTRUCT			m_pCounterStruct;
-	HQUERY						m_hQuery;
-
-
+	PPDHCOUNTERSTRUCT m_pCounterStruct;
+	HQUERY			  m_hQuery;
 };
-
-#endif // !defined(AFX_CPUUSAGE_H__60CF4F03_9F01_41E8_A9FB_51F065D5F3C2__INCLUDED_)
