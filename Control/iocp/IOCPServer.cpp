@@ -50,7 +50,7 @@ CIOCPServer::~CIOCPServer()
 	WSACleanup();
 }
 
-bool CIOCPServer::Initialize(NOTIFYPROC pNotifyProc, CDialog* pFrame, int nMaxConnections, int nPort)
+bool CIOCPServer::Initialize(NOTIFYPROC pNotifyProc, CMainFrame* pFrame, int nMaxConnections, int nPort)
 {
 	m_pNotifyProc     = pNotifyProc;
 	m_pFrame		  =  pFrame;

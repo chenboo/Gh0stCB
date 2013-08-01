@@ -96,13 +96,14 @@ typedef CList<ClientContext*, ClientContext*> ContextList;
 
 #include "Mapper.h"
 
+class CMainFrame;
 class CIOCPServer
 {
 public:
 	CIOCPServer();
 	virtual ~CIOCPServer();
 
-	bool Initialize(NOTIFYPROC pNotifyProc, CDialog* pFrame, int nMaxConnections, int nPort);
+	bool Initialize(NOTIFYPROC pNotifyProc, CMainFrame* pFrame, int nMaxConnections, int nPort);
 
 	void Send(ClientContext* pContext, LPBYTE lpData, UINT nSize);
 	void PostRecv(ClientContext* pContext);
@@ -145,7 +146,7 @@ public:
 	static CRITICAL_SECTION	m_cs;
 
 	NOTIFYPROC m_pNotifyProc;
-	CDialog *m_pFrame;
+	CMainFrame *m_pFrame;
 
 	LONG m_nCurrentThreads;
 	LONG m_nBusyThreads;

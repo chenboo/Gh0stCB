@@ -10,7 +10,6 @@
 #define new DEBUG_NEW
 #endif
 
-
 // CMainFrame
 
 IMPLEMENT_DYNAMIC(CMainFrame, CFrameWnd)
@@ -22,10 +21,10 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // status line indicator
-	ID_INDICATOR_CAPS,
-	ID_INDICATOR_NUM,
-	ID_INDICATOR_SCRL,
+	ID_STAUTSTIP,           // status line indicator
+	ID_STAUTSSPEED,
+	ID_STAUTSPORT,
+	ID_STAUTSCOUNT
 };
 
 
@@ -34,10 +33,15 @@ static UINT indicators[] =
 CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
+	m_iocpServer = NULL;
 }
 
 CMainFrame::~CMainFrame()
 {
+	if (m_iocpServer) {
+		delete m_iocpServer;
+		m_iocpServer = NULL;
+	}
 }
 
 
@@ -54,13 +58,23 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 
 
-	//if (!m_wndStatusBar.Create(this) ||
-	//	!m_wndStatusBar.SetIndicators(indicators,
-	//	  sizeof(indicators)/sizeof(UINT)))
-	//{
-	//	TRACE0("Failed to create status bar\n");
-	//	return -1;      // fail to create
-	//}
+	if (!m_wndStatusBar.Create(this) ||
+		!m_wndStatusBar.SetIndicators(indicators,
+		  sizeof(indicators)/sizeof(UINT)))
+	{
+		TRACE0("Failed to create status bar\n");
+		return -1;      // fail to create
+	}
+
+	m_wndStatusBar.SetPaneInfo(0, m_wndStatusBar.GetItemID(0), SBPS_STRETCH, NULL);
+	m_wndStatusBar.SetPaneInfo(1, m_wndStatusBar.GetItemID(1), SBPS_NORMAL, 160);
+	m_wndStatusBar.SetPaneInfo(2, m_wndStatusBar.GetItemID(2), SBPS_NORMAL, 70);
+	m_wndStatusBar.SetPaneInfo(3, m_wndStatusBar.GetItemID(3), SBPS_NORMAL, 80);
+
+	m_wndStatusBar.SetPaneText(0, _T("端口: 110"));
+		m_wndStatusBar.SetPaneText(1, _T("端口: 220"));
+			m_wndStatusBar.SetPaneText(2, _T("端口: 0333"));
+				m_wndStatusBar.SetPaneText(3, _T("端口: 4440"));
 
 
 	return 0;
@@ -113,4 +127,76 @@ BOOL CMainFrame::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO*
 	return CFrameWnd::OnCmdMsg(nID, nCode, pExtra, pHandlerInfo);
 }
 
+void CALLBACK CMainFrame::NotifyProc(LPVOID lpParam, ClientContext *pContext, UINT nCode)
+{
+	//try
+	//{
+	//	CMainFrame* pFrame = (CMainFrame*) lpParam;
+	//	CString str;
+	//	// 对g_pConnectView 进行初始化
+	//	g_pConnectView = (CGh0stView *)((CGh0stApp *)AfxGetApp())->m_pConnectView;
 
+	//	// g_pConnectView还没创建，这情况不会发生
+	//	if (((CGh0stApp *)AfxGetApp())->m_pConnectView == NULL)
+	//		return;
+
+	//	g_pConnectView->m_iocpServer = m_iocpServer;
+
+	//	str.Format("S: %.2f kb/s R: %.2f kb/s", (float)m_iocpServer->m_nSendKbps / 1024, (float)m_iocpServer->m_nRecvKbps / 1024);
+	//	g_pFrame->m_wndStatusBar.SetPaneText(1, str);
+
+	//	switch (nCode)
+	//	{
+	//	case NC_CLIENT_CONNECT:
+	//		break;
+	//	case NC_CLIENT_DISCONNECT:
+	//		g_pConnectView->PostMessage(WM_REMOVEFROMLIST, 0, (LPARAM)pContext);
+	//		break;
+	//	case NC_TRANSMIT:
+	//		break;
+	//	case NC_RECEIVE:
+	//		ProcessReceive(pContext);
+	//		break;
+	//	case NC_RECEIVE_COMPLETE:
+	//		ProcessReceiveComplete(pContext);
+	//		break;
+	//	}
+	//}catch(...){}
+}
+
+void CMainFrame::StartIocp(int nPort, int nMaxConnections)
+{
+	if (m_iocpServer != NULL) {
+		m_iocpServer->Shutdown();
+		delete m_iocpServer;
+	}
+
+	m_iocpServer = new CIOCPServer;
+
+	CString strStatus;
+
+	if (m_iocpServer->Initialize(NotifyProc, this, nMaxConnections, nPort)) {
+		char hostname[256] = {0};
+		gethostname(hostname, sizeof(hostname));
+		HOSTENT *host = gethostbyname(hostname);
+		if (host != NULL) {
+			for (int i=0;; i++) {
+				strStatus += inet_ntoa(*(IN_ADDR*)host->h_addr_list[i]);
+				if ( host->h_addr_list[i] + host->h_length >= host->h_name )
+					break;
+				strStatus += "/";
+			}
+		}
+
+		m_wndStatusBar.SetPaneText(0, strStatus);
+		strStatus.Format(_T("端口: %d"), nPort);
+		m_wndStatusBar.SetPaneText(2, strStatus);
+	}
+	else {
+		strStatus.Format(_T("端口%d绑定失败"), nPort);
+		m_wndStatusBar.SetPaneText(0, strStatus);
+		m_wndStatusBar.SetPaneText(2, _T("端口: 0"));
+	}
+
+	m_wndStatusBar.SetPaneText(3, _T("连接: 0"));
+}

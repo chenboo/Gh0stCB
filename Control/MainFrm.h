@@ -5,6 +5,7 @@
 #pragma once
 
 #include "ChildView.h"
+#include "iocp/IOCPServer.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -33,9 +34,17 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
+	void StartIocp(int nPort, int nMaxConnection);
+
 protected:  // control bar embedded members
-	//CStatusBar  m_wndStatusBar;
+	CStatusBar  m_wndStatusBar;
 	CChildView    m_wndView;
+
+	CIOCPServer *m_iocpServer;
+
+private:
+	static void CALLBACK NotifyProc(LPVOID lpParam, ClientContext* pContext, UINT nCode);
+
 
 // Generated message map functions
 protected:

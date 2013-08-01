@@ -90,9 +90,6 @@ BOOL CControlApp::InitInstance()
 
 // CControlApp message handlers
 
-
-
-
 // CAboutDlg dialog used for App About
 
 class CAboutDlg : public CDialog
@@ -126,8 +123,9 @@ END_MESSAGE_MAP()
 // App command to run the dialog
 void CControlApp::OnAppAbout()
 {
-	CAboutDlg aboutDlg;
-	aboutDlg.DoModal();
+	((CMainFrame*)m_pMainWnd)->StartIocp(2022,2000);
+//	CAboutDlg aboutDlg;
+//	aboutDlg.DoModal();
 }
 
 

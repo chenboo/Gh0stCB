@@ -303,5 +303,9 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="Control.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
