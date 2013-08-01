@@ -5,8 +5,14 @@
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define ID_STAUTSTIP                    101
+#define ID_STAUTSSPEED                  102
+#define ID_STAUTSPORT                   103
+#define ID_STAUTSCOUNT                  104
 #define IDR_MAINFRAME                   128
 #define IDR_ControlTYPE                 129
+
+
+#define ID_LISTPEOPLE                   30000
 
 // Next default values for new objects
 // 

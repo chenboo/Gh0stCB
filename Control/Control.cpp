@@ -123,9 +123,8 @@ END_MESSAGE_MAP()
 // App command to run the dialog
 void CControlApp::OnAppAbout()
 {
-	((CMainFrame*)m_pMainWnd)->StartIocp(2022,2000);
-//	CAboutDlg aboutDlg;
-//	aboutDlg.DoModal();
+	CAboutDlg aboutDlg;
+	aboutDlg.DoModal();
 }
 
 

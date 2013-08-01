@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="../common/"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,7 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="zlib.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../common/zlib/"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -115,6 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="../common/"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="2"
@@ -133,7 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="zlib.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../common/zlib/"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -175,6 +181,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Buffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientSocket.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Manager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Service.cpp"
 				>
 			</File>
@@ -198,6 +216,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\until.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -205,7 +227,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Buffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ClientSocket.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Manager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\until.h"
 				>
 			</File>
 		</Filter>

@@ -221,8 +221,10 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDP_OLE_INIT_FAILED     "OLE initialization failed.  Make sure that the OLE libraries are the correct version."
-    ID_STAUTSTIP            "IP："
+    ID_STAUTSTIP            "就绪"
+    ID_STAUTSSPEED          "Send: 0.00 kb/s Recv: 0.00 kb/s"
+    ID_STAUTSPORT           "端口: 1986"
+    ID_STAUTSCOUNT          "连接: 0"
 END
 
 STRINGTABLE 

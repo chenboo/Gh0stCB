@@ -12,24 +12,29 @@ class CChildView : public CWnd
 // Construction
 public:
 	CChildView();
+	virtual ~CChildView();
 
-// Attributes
-public:
+private:
+	BOOL CreateChildCtrl();
+	void Relayout();
 
-// Operations
-public:
+	void PeopleConnected();
 
-// Overrides
-	protected:
+private:
+	CListCtrl m_lcListPeople;
+
+protected:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
-// Implementation
-public:
-	virtual ~CChildView();
 
 	// Generated message map functions
 protected:
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+
+	afx_msg LRESULT OnRemoveFromList(WPARAM, LPARAM);
+	afx_msg LRESULT OnAddToList(WPARAM, LPARAM);
 };
 

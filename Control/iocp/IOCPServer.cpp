@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "IOCPServer.h"
-#include "../zlib/zlib.h"
+#include "zlib/zlib.h"
 
 // 'G' 'h' '0' 's' 't' | PacketLen | UnZipLen
 #define HDR_SIZE	13
@@ -95,7 +95,7 @@ bool CIOCPServer::Initialize(NOTIFYPROC pNotifyProc, CMainFrame* pFrame, int nMa
 	saServer.sin_addr.s_addr = INADDR_ANY;
 
 	// bind our name to the socket
-	nRet = bind(m_socketListen, 
+	nRet = bind(m_socketListen,
 				(LPSOCKADDR)&saServer, 
 				sizeof(struct sockaddr));
 	if (SOCKET_ERROR == nRet)
@@ -332,7 +332,7 @@ void CIOCPServer::OnAccept()
 	    return;
     }
 
-	m_pNotifyProc((LPVOID) m_pFrame, pContext, NC_CLIENT_CONNECT);
+	m_pNotifyProc((LPVOID)m_pFrame, pContext, NC_CLIENT_CONNECT);
 
 	// Post to WSARecv Next
 	PostRecv(pContext);

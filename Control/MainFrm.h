@@ -43,8 +43,12 @@ protected:  // control bar embedded members
 	CIOCPServer *m_iocpServer;
 
 private:
-	static void CALLBACK NotifyProc(LPVOID lpParam, ClientContext* pContext, UINT nCode);
+	void ProcessConnect(ClientContext *pContext);
+	void ProcessDisconnect(ClientContext *pContext);
+	void ProcessReceive(ClientContext *pContext);
+	void ProcessReceiveComplete(ClientContext *pContext);
 
+	static void CALLBACK NotifyProc(LPVOID lpParam, ClientContext* pContext, UINT nCode);
 
 // Generated message map functions
 protected:
